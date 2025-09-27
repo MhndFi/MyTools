@@ -14,8 +14,16 @@ WORDLIST=$1
 URL=$2
 HOST=$3
 
-# Print the command that is about to be executed
-echo "🚀 Running command: ffuf -w $WORDLIST -u $URL -H \"Host: FUZZ.$HOST\""
-
-# Execute the ffuf command
+# Run ffuf once without filtering to let the user observe the response size
+echo "🚀 Running initial command (without -fs): ffuf -w $WORDLIST -u $URL -H \"Host: FUZZ.$HOST\""
 ffuf -w "$WORDLIST" -u "$URL" -H "Host: FUZZ.$HOST"
+
+# Prompt the user for the response size to filter out
+read -p $'Enter the response size to filter with -fs (press Enter to skip): ' FILTER_SIZE
+
+if [[ -n "$FILTER_SIZE" ]]; then
+    echo "🚀 Running command with -fs $FILTER_SIZE: ffuf -w $WORDLIST -u $URL -H \"Host: FUZZ.$HOST\" -fs $FILTER_SIZE"
+    ffuf -w "$WORDLIST" -u "$URL" -H "Host: FUZZ.$HOST" -fs "$FILTER_SIZE"
+else
+    echo "ℹ️ Skipping filtered run; no -fs size provided."
+fi
